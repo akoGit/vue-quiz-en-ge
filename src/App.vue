@@ -1,9 +1,9 @@
 <script setup>
-import Questions from './components/Questions.vue';
+import Questions from './components/Questions.vue'
+import Header from './components/Header.vue'
 </script>
 
 <template>
-     <Questions />
+  <Header/>
+  <Questions />
 </template>
-
-<style scoped></style>

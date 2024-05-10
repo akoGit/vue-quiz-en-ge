@@ -1,26 +1,4 @@
 import { defineStore } from 'pinia'
-// import { ref } from 'vue'
-
-// export const useQuestionsStore = defineStore('questions', () => {
-// 	const questions = ref([])
-
-// 	const setQuestions = (newQuestions) => {
-// 		questions.value = newQuestions;
-// 	}
-
-// 	const addQuestion = (question) => {
-// 		questions.value.push(question);
-// 	}
-
-// 	// Other actions as needed
-
-// 	return {
-// 		questions,
-// 		setQuestions,
-// 		addQuestion,
-// 		// Other exposed properties and actions
-// 	}
-// })
 
 const EN = 'https://raw.githubusercontent.com/lydiahallie/javascript-questions/master/README.md'
 const GE = 'https://raw.githubusercontent.com/akoGit/javascript-questions/master/ge-GE/README.md'
@@ -43,10 +21,27 @@ export const useQuestionsStore = defineStore({
         console.error('Failed to fetch questions:', response.statusText)
       }
     },
-    toggleLanguage() {
-      this.language = this.language === 'en' ? 'ge' : 'en'
+    handleAnswer(event) {
+      this.questions = this.questions.map((question) => {
+        if (question && event.detail && question.id === event.detail.id) {
+          return {
+            ...question,
+            clickedAnswer: event.detail.clickedAnswer,
+            isCorrect: event.detail.isCorrect
+          };
+        }
+        return question;
+      });
+    },
+    toggleLangEN() {
+      this.language = this.language === 'ge' ? 'en' : 'en'
       this.getQuestions()
     },
+    toggleLangGE() {
+      this.language = this.language === 'en' ? 'ge' : 'ge'
+      this.getQuestions()
+    },
+
     setQuestions(questions) {
       this.questions = questions
     }
@@ -98,4 +93,15 @@ function parseQuestions(unparsed) {
 //       return question
 //     })
 //   })
+// }
+// export function handleAnswer(event) {
+//   questions.update((questions) => {
+//     return questions.map((question) => {
+//       if (question.id === event.detail.id) {
+//         question.clickedAnswer = event.detail.clickedAnswer;
+//         question.isCorrect = event.detail.isCorrect;
+//       }
+//       return question;
+//     });
+//   });
 // }

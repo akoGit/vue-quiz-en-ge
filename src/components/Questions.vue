@@ -1,9 +1,7 @@
 <script setup>
 import QuestionCard from './QuestionCard.vue'
-import { useQuestionsStore } from '../scripts/store.js'
-// import { getQuestions } from '../scripts/questions.js';
+import { useQuestionsStore} from '../scripts/store.js'
 import { computed, onMounted } from 'vue'
-
 let page = 1
 let questionsPerPage = 10
 
@@ -22,23 +20,23 @@ onMounted(() => {
   store.getQuestions()
 })
 
-const toggleLanguage = () => {
-  store.toggleLanguage()
-}
+const handleAnswer = (event) => {
+  store.handleAnswer(event); // Pass the event to the store method
+};
+
 </script>
 
 <template>
   <div class="center">
     <ul>
       <li v-for="(question, index) in getPageQuestions" :key="index">
-        <QuestionCard :question="question" />
+        <QuestionCard :question="question" @answer-clicked="handleAnswer($event)" />
       </li>
     </ul>
   </div>
-  <button class="toggle_lang" @click="toggleLanguage">Toggle Language</button>
 </template>
 
-<style scoped>
+<style>
 .center {
   min-height: 100vh;
   display: grid;
