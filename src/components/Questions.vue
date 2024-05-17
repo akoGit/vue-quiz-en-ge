@@ -113,7 +113,7 @@ const displayPageNumbers = computed(() => {
 
 	<div class="center">
 		<ul>
-			<li v-for="(question, index) in getPageQuestions" :key="index">
+			<li v-for="(question, index) in getPageQuestions" :key="question.id">
 				<QuestionCard :question="question" />
 			</li>
 		</ul>
