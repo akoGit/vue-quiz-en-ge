@@ -21,18 +21,6 @@ export const useQuestionsStore = defineStore({
         console.error('Failed to fetch questions:', response.statusText)
       }
     },
-    handleAnswer(event) {
-      this.questions = this.questions.map((question) => {
-        if (question && event.detail && question.id === event.detail.id) {
-          return {
-            ...question,
-            clickedAnswer: event.detail.clickedAnswer,
-            isCorrect: event.detail.isCorrect
-          };
-        }
-        return question;
-      });
-    },
     toggleLangEN() {
       this.language = this.language === 'ge' ? 'en' : 'en'
       this.getQuestions()
@@ -43,8 +31,9 @@ export const useQuestionsStore = defineStore({
     },
 
     setQuestions(questions) {
-      this.questions = questions
-    }
+      this.questions = questions;
+    },
+
   }
 })
 
@@ -83,25 +72,13 @@ function parseQuestions(unparsed) {
   })
 }
 
-// export function handleAnswer(event) {
-//   this.questions.update((questions) => {
-//     return questions.map((question) => {
-//       if (question.id === event.detail.id) {
-//         question.clickedAnswer = event.detail.clickedAnswer
-//         question.isCorrect = event.detail.isCorrect
-//       }
-//       return question
-//     })
-//   })
-// }
-// export function handleAnswer(event) {
-//   questions.update((questions) => {
-//     return questions.map((question) => {
-//       if (question.id === event.detail.id) {
-//         question.clickedAnswer = event.detail.clickedAnswer;
-//         question.isCorrect = event.detail.isCorrect;
-//       }
-//       return question;
-//     });
-//   });
-// }
+
+
+
+
+
+
+
+
+
+

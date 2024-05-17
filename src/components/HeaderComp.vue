@@ -18,49 +18,27 @@ const toggleLangGE = () => {
 </script>
 
 <template>
-  <div class="lang_wrap">
+  <div class="lang_wrap" id="lang">
     <div class="tabs">
       <input type="radio" id="EN" name="fav_language_two" value="EN" checked />
-      <label @click="toggleLangEN" for="EN">A</label>
+      <label @click="toggleLangEN" for="EN">EN</label>
       <input type="radio" id="KA" name="fav_language_two" value="KA" />
-      <label @click="toggleLangGE" for="KA">ა</label>
+      <label @click="toggleLangGE" for="KA">ქა</label>
     </div>
   </div>
 </template>
 
 <style>
-:root {
-  --radius: 8px;
-  --border: 4px;
-  --height: 48px;
-  --speed: 0.25s;
-  --ease: linear(
-    0,
-    0.1641 3.52%,
-    0.311 7.18%,
-    0.4413 10.99%,
-    0.5553 14.96%,
-    0.6539 19.12%,
-    0.738 23.5%,
-    0.8086 28.15%,
-    0.8662 33.12%,
-    0.9078 37.92%,
-    0.9405 43.12%,
-    0.965 48.84%,
-    0.9821 55.28%,
-    0.992 61.97%,
-    0.9976 70.09%,
-    1
-  );
-}
+
 .lang_wrap {
   display: grid;
   place-items: center;
-  align-content: center;
-  margin: 1em;
-  position: abosolute;
-  top: 0;
-  right: 0;
+  /* justify-content: end; */
+  /* margin: 1em; */
+  /* top: 0; */
+  /* right: 0; */
+  /* border: 1px solid red; */
+  margin-top:.5rem;
 }
 .tabs {
   height: var(--height);
@@ -124,19 +102,19 @@ input:not(:checked) + label:hover {
 }
 
 .tabs::after {
-	pointer-events: none;
-	content: "";
-	width: calc(100% / var(--count));
-	height: 100%;
-	background: hsl(0 0% 100%);
-	position: absolute;
-	border-radius: calc(var(--radius) - var(--border));
-	mix-blend-mode: difference;
-	translate: calc(var(--active, 0) * 100%) 0;
-	transition: translate, outline-color;
+  pointer-events: none;
+  content: "";
+  width: calc(100% / var(--count));
+  height: 100%;
+  background: hsl(0 0% 100%);
+  position: absolute;
+  border-radius: calc(var(--radius) - var(--border));
+  mix-blend-mode: difference;
+  translate: calc(var(--active, 0) * 100%) 0;
+  transition: translate, outline-color;
   transition-duration: var(--speed);
   transition-timing-function: var(--ease, ease);
-	outline: 1px solid #fff;
+  outline: 1px solid #fff;
   border-radius: 2px;
 }
 
