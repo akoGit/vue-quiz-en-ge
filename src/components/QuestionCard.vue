@@ -1,14 +1,18 @@
 <script setup>
-import { onMounted, ref, watchEffect, computed } from 'vue'
+import { onMounted, ref, watchEffect, computed, watch } from 'vue'
 import hljs from 'highlight.js'
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
 import 'highlight.js/styles/github-dark.css'
+import { useQuestionsStore } from '../scripts/store.js'
 
+const questionsStore = useQuestionsStore()
 const clickedAnswer = ref(null)
 
 const props = defineProps({
-  question: Object
+  question: Object,
 })
+
+const localStorageKey = computed(() => `#_${props.question.id}`)
 
 const renderedMarkdown = ref('')
 
@@ -34,13 +38,16 @@ const updateMarkdown = () => {
 
 onMounted(() => {
   updateMarkdown()
-})
+  const storedAnswer = localStorage.getItem(localStorageKey.value)
+  if (storedAnswer) {
+    clickedAnswer.value = storedAnswer
+}})
 
 watchEffect(() => {
   updateMarkdown()
 })
 
-const emit = defineEmits(['answerClicked'])
+// const emit = defineEmits(['answerClicked'])
 
 const click = (answerChar) => {
   if (clickedAnswer.value !== null) {
@@ -49,12 +56,19 @@ const click = (answerChar) => {
 
   clickedAnswer.value = answerChar
 
-  emit('answerClicked', {
-    id: props.question.id,
-    clickedAnswer: answerChar,
-    isCorrect: answerChar === props.question.correctAnswer
-  })
+  // emit('answerClicked', {
+  //   id: props.question.id,
+  //   clickedAnswer: answerChar,
+  //   isCorrect: answerChar === props.question.correctAnswer
+  // })
 }
+
+watch(clickedAnswer, (newAnswer) => {
+  if (newAnswer !== null) {
+    localStorage.setItem(localStorageKey.value, newAnswer)
+  }
+})
+
 
 const isOpen = ref(false)
 
@@ -65,8 +79,10 @@ const toggleAccordion = () => {
 }
 
 const isClickable = computed(() => clickedAnswer.value !== null)
+
 </script>
 <template>
+
   <div class="card">
     <div class="title_id_wrap">
       <h1 v-html="marked.parse(question.title)"></h1>
@@ -132,6 +148,7 @@ const isClickable = computed(() => clickedAnswer.value !== null)
   flex-grow: 1;
   flex-shrink: 0;
   margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 li {
   list-style: none;
@@ -246,4 +263,5 @@ h1 {
     height: 150px;
   }
 }
+
 </style>

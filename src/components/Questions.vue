@@ -3,8 +3,9 @@ import QuestionCard from './QuestionCard.vue'
 import { useQuestionsStore } from '../scripts/store.js'
 import { computed, onMounted, ref, nextTick } from 'vue'
 
-let questionsPerPage = 30
+let questionsPerPage = 10
 let page = ref(1)
+
 const store = useQuestionsStore()
 
 const updatePageFromUrl = () => {
@@ -96,28 +97,38 @@ const displayPageNumbers = computed(() => {
 
   return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
 })
+//
+// const handleAnswer = (payload) => {
+//   store.handleAnswer(payload)
+// }
+
+
 </script>
 
 <template>
-	<div class="pagination_nav">
-		<button @click="firstPage" :disabled="page === 1">⇤</button>
-		<button @click="prevPage" :disabled="page === 1" class="page prev">← Previous</button>
-		<span v-for="pageNumber in displayPageNumbers" :key="pageNumber">
-			<button @click="goToPage(pageNumber)" :class="{ activePage: pageNumber === page }" class="pageNums">
-				{{ pageNumber }}
-			</button>
-		</span>
-		<button @click="nextPage" :disabled="page === totalPages" class="page next">Next →</button>
-		<button @click="lastPage">⇥</button>
-	</div>
+  <div class="pagination_nav">
+    <button @click="firstPage" :disabled="page === 1">⇤</button>
+    <button @click="prevPage" :disabled="page === 1" class="page prev">← Previous</button>
+    <span v-for="pageNumber in displayPageNumbers" :key="pageNumber">
+      <button
+        @click="goToPage(pageNumber)"
+        :class="{ activePage: pageNumber === page }"
+        class="pageNums"
+      >
+        {{ pageNumber }}
+      </button>
+    </span>
+    <button @click="nextPage" :disabled="page === totalPages" class="page next">Next →</button>
+    <button @click="lastPage">⇥</button>
+  </div>
 
-	<div class="center">
-		<ul>
-			<li v-for="(question, index) in getPageQuestions" :key="question.id">
-				<QuestionCard :question="question" />
-			</li>
-		</ul>
-	</div>
+  <div class="center">
+    <ul>
+      <li v-for="question in getPageQuestions" :key="question.id">
+        <QuestionCard :question="question" />
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style scoped>
@@ -195,4 +206,17 @@ button {
     background-color: hsl(240 3.7% 15.9%);
   }
 }
+
+
+/* .reset { */
+/*   padding:0; */
+/*   position: fixed; */
+/*   right: 10px; */
+/*   top:10px;; */
+/*   width:2.25rem; */
+/*   height:2.25rem; */
+/*   display:grid; */
+/*   place-items:center; */
+/*   text-align:center; */
+/*  } */
 </style>

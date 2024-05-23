@@ -1,11 +1,9 @@
 <script setup>
 import Questions from './components/Questions.vue'
 import HeaderComp from './components/HeaderComp.vue'
-// import ThemeSwitch from './components/ThemeSwitch.vue'
 </script>
 
 <template>
-  <!-- <ThemeSwitch/> -->
   <HeaderComp/>
   <Questions />
   <a href="#lang" class="top_jump" title="back to top"><button>↑</button></a>
