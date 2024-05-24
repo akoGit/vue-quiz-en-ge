@@ -69,7 +69,7 @@ const updateUrl = () => {
 
 const scrollToTop = () => {
   nextTick(() => {
-    window.scrollTo({ top: 0 })
+    window.scrollTo({ top: 0, behavior: "instant" })
   })
 }
 
@@ -97,16 +97,24 @@ const displayPageNumbers = computed(() => {
 
   return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
 })
-//
-// const handleAnswer = (payload) => {
-//   store.handleAnswer(payload)
-// }
 
 
 </script>
 
 <template>
-  <div class="pagination_nav">
+  
+  <div class="center">
+    <ul>
+
+      <li v-for="question in getPageQuestions" :key="question.id">
+            <QuestionCard :question="question"  />
+      </li>
+
+    </ul>
+
+  </div>
+
+<div class="pagination_nav">
     <button @click="firstPage" :disabled="page === 1">⇤</button>
     <button @click="prevPage" :disabled="page === 1" class="page prev">← Previous</button>
     <span v-for="pageNumber in displayPageNumbers" :key="pageNumber">
@@ -122,13 +130,6 @@ const displayPageNumbers = computed(() => {
     <button @click="lastPage">⇥</button>
   </div>
 
-  <div class="center">
-    <ul>
-      <li v-for="question in getPageQuestions" :key="question.id">
-        <QuestionCard :question="question" />
-      </li>
-    </ul>
-  </div>
 </template>
 
 <style scoped>
@@ -208,15 +209,5 @@ button {
 }
 
 
-/* .reset { */
-/*   padding:0; */
-/*   position: fixed; */
-/*   right: 10px; */
-/*   top:10px;; */
-/*   width:2.25rem; */
-/*   height:2.25rem; */
-/*   display:grid; */
-/*   place-items:center; */
-/*   text-align:center; */
-/*  } */
+
 </style>

@@ -1,11 +1,13 @@
 <script setup>
 import Questions from './components/Questions.vue'
 import HeaderComp from './components/HeaderComp.vue'
+
 </script>
 
 <template>
   <HeaderComp/>
   <Questions />
+
   <a href="#lang" class="top_jump" title="back to top"><button>↑</button></a>
 </template>
 
@@ -25,8 +27,9 @@ import HeaderComp from './components/HeaderComp.vue'
     width:2.25rem;
     height:2.25rem;
     border-radius:4px;
+    &:hover {
+      background-color:hsl(240,3.7%,15.9%);
+    }
   }
-
 }
-
 </style>

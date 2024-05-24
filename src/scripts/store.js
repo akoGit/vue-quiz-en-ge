@@ -6,8 +6,8 @@ const GE = 'https://raw.githubusercontent.com/akoGit/javascript-questions/master
 
 export const useQuestionsStore = defineStore('questions', () => {
 
-  const questions = ref([])
-  const language = ref('en')
+  const questions = ref([]);
+  const language = ref(localStorage.getItem('language') || 'en');
 
   const getQuestions = async () => {
     const url = language.value === 'en' ? EN : GE
@@ -16,7 +16,6 @@ export const useQuestionsStore = defineStore('questions', () => {
       const text = await response.text()
       const unparsed = text.split(/(?=#{6} [1-9])/).slice(1)
       setQuestions(parseQuestions(unparsed))
-      // loadAnswersFromLocalStorage()
     } else {
       console.error('Failed to fetch questions:', response.statusText)
     }
@@ -25,55 +24,19 @@ export const useQuestionsStore = defineStore('questions', () => {
 
   const toggleLangEN = () => {
     language.value = 'en'
+    localStorage.setItem('language', 'en')
     getQuestions()
   }
 
   const toggleLangGE = () => {
     language.value = 'ge'
+    localStorage.setItem('language', 'ge')
     getQuestions()
   }
 
   const setQuestions = (newQuestions) => {
     questions.value = newQuestions
   }
-
-  // function handleAnswer(event) {
-  //   questions.value = questions.value.map((question) => {
-  //     if (question.id === event.id) {
-  //       question.clickedAnswer = event.clickedAnswer;
-  //       question.isCorrect = event.isCorrect;
-  //     }
-  //     console.log(question)
-  //
-  //     return question;
-  //   });
-  //   saveAnswersToStorage();
-  // };
-
-  // function saveAnswersToStorage() {
-  //   const answeredQuestions = questions.value
-  //     .filter((a) => a.clickedAnswer)
-  //     .map((a) => a.id + '-' + a.clickedAnswer)
-  //
-  //
-  //   localStorage.setItem('answers', JSON.stringify(answeredQuestions))
-  // }
-
-  // function loadAnswersFromLocalStorage() {
-  //   const savedAnswers = JSON.parse(localStorage.getItem('answers'))
-  //   if (savedAnswers) {
-  //     questions.value = questions.value.map((question) => {
-  //       const answeredQuestion = savedAnswers.find(answer => answer.startsWith(question.id + '-'))
-  //       if (answeredQuestion) {
-  //         const clickedAnswer = answeredQuestion.split('-')[1]
-  //         question.clickedAnswer = clickedAnswer
-  //         question.isCorrect = question.clickedAnswer === question.correctAnswer
-  //       }
-  //       return question
-  //     })
-  //   }
-  // }
-
 
   return {
     questions,
@@ -82,7 +45,6 @@ export const useQuestionsStore = defineStore('questions', () => {
     toggleLangEN,
     toggleLangGE,
     setQuestions,
-    // handleAnswer
   }
 })
 
@@ -123,14 +85,3 @@ function parseQuestions(unparsed) {
     return obj
   })
 }
-
-
-
-
-
-
-
-
-
-
-

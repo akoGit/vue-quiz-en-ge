@@ -1,43 +1,127 @@
 <script setup>
 import { useQuestionsStore } from '../scripts/store.js'
-import { onMounted } from 'vue'
+import { onMounted, watch, ref } from 'vue'
+import { onClickOutside } from "@vueuse/core"
 
-const store = useQuestionsStore()
+const { language, toggleLangEN, toggleLangGE } = useQuestionsStore()
 
-onMounted(() => {
-  store.getQuestions()
-})
+const isAlertOpen = ref(false)
+const alert = ref(null)
 
-const toggleLangEN = () => {
-  store.toggleLangEN()
+onClickOutside(alert, () => (isAlertOpen.value = false))
+
+function resetStore() {
+    localStorage.clear()
+    window.location.reload()
 }
 
-const toggleLangGE = () => {
-  store.toggleLangGE()
-}
 </script>
 
 <template>
+
+ <header>
+
+   <div></div>
+
   <div class="lang_wrap" id="lang">
     <div class="tabs">
-      <input type="radio" id="EN" name="fav_language_two" value="EN" checked />
+      <input type="radio" id="EN" name="fav_language_two" value="EN" :checked="language === 'en'" />
       <label @click="toggleLangEN" for="EN">EN</label>
-      <input type="radio" id="KA" name="fav_language_two" value="KA" />
+      <input type="radio" id="KA" name="fav_language_two" value="KA" :checked="language === 'ge'" />
       <label @click="toggleLangGE" for="KA">ქა</label>
     </div>
   </div>
+
+
+  </header>
+
+  <button @click="isAlertOpen = true" class="reset">↺</button>
+
+<Teleport to="#alert">
+
+    <Transition name="alert">
+    <div class="alert-bg" v-if="isAlertOpen">
+      <div class="alert" ref="alert">
+        <div class="alert-text">
+          <h1>Are you absolutely sure?</h1>
+          <p>This action cannot be undone. This will permanently delete your already answered questions.</p>
+        </div>
+
+        <div class="alert-btns">
+          <button @click="isAlertOpen = false">Cancel</button>
+          <button @click="resetStore">Continue</button>
+        </div>
+      </div>
+    </div>
+    </Transition>
+
+  </Teleport>
+
 </template>
 
 <style>
 
+header {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.alert-enter-active,
+.alert-leave-active {
+transition: all .25s ease;
+}
+
+.alert-enter-from,
+.alert-leave-to {
+  opacity: 0;
+  transform: scale(.95);
+}
+
+.alert-bg {
+  position:fixed;
+  top: 0;
+  left: 0;
+  width:100vw;
+  height:100vh;
+  background-color:rgba(0, 0, 0, .8);
+  z-index: 50;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transform:scale(1);
+}
+.alert {
+  border-radius:0.5rem;
+  padding:1.5rem;
+  background-color: hsl(240 ,10%, 3.9%);
+  border: 1px solid #333340;;
+  max-width:32rem;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+.alert-text {
+  display:flex;
+  flex-direction:column;
+}
+.alert-text h1 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: .5em;
+}
+
+.alert-text p {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: hsl(240, 5%, 64.9%);
+}
+
 .lang_wrap {
   display: grid;
   place-items: center;
-  /* justify-content: end; */
-  /* margin: 1em; */
-  /* top: 0; */
-  /* right: 0; */
-  /* border: 1px solid red; */
   margin-top:.5rem;
 }
 .tabs {
@@ -120,5 +204,49 @@ input:not(:checked) + label:hover {
 
 .tabs:has(:focus-visible)::after {
   outline-color: rgb(137, 137, 137);
+}
+.reset {
+  position:fixed;
+  top:0;
+  right:0;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  margin: .5em;
+  color: #FFFFFF;
+  background-color: #000000;
+  border: 1px solid  #333340;
+  width:2.25rem;
+  height:2.25rem;
+  border-radius:4px;
+  cursor:pointer;
+ }
+
+button {
+  cursor:pointer;
+  font-weight:500;
+}
+button:hover {
+  background-color:hsl(240,3.7%,15.9%);
+}
+
+.alert-btns {
+  display:flex;
+  justify-content:flex-end;
+  gap: .5rem;
+}
+
+.alert-btns > button {
+  background-color: #000000;
+  border: 1px solid  #333340;
+  padding: .5rem 1rem;
+  border-radius:6px;
+}
+.alert-btns > button:first-child:hover {
+  background-color:hsl(240,3.7%,15.9%);
+}
+.alert-btns :nth-of-type(2) {
+  color:#000000;
+  background-color:#FFFFFF;
 }
 </style>

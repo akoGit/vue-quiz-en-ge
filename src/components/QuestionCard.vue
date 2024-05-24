@@ -5,6 +5,7 @@ import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
 import 'highlight.js/styles/github-dark.css'
 import { useQuestionsStore } from '../scripts/store.js'
 
+
 const questionsStore = useQuestionsStore()
 const clickedAnswer = ref(null)
 
@@ -49,19 +50,21 @@ watchEffect(() => {
 
 // const emit = defineEmits(['answerClicked'])
 
-const click = (answerChar) => {
+function click(answerChar){
   if (clickedAnswer.value !== null) {
     return
   }
 
   clickedAnswer.value = answerChar
-
+  console.log(clickedAnswer)
   // emit('answerClicked', {
   //   id: props.question.id,
   //   clickedAnswer: answerChar,
   //   isCorrect: answerChar === props.question.correctAnswer
   // })
 }
+
+
 
 watch(clickedAnswer, (newAnswer) => {
   if (newAnswer !== null) {
@@ -82,11 +85,10 @@ const isClickable = computed(() => clickedAnswer.value !== null)
 
 </script>
 <template>
-
   <div class="card">
     <div class="title_id_wrap">
       <h1 v-html="marked.parse(question.title)"></h1>
-      <p class="pp">{{ question.id }}</p>
+     <p class="pp">{{ question.id }}</p>
     </div>
 
     <div class="hljs-code" v-html="renderedMarkdown"></div>
@@ -126,7 +128,6 @@ const isClickable = computed(() => clickedAnswer.value !== null)
     </ul>
   </div>
 </template>
-
 <style scoped>
 *,
 *::before,
@@ -184,6 +185,15 @@ h1 {
 }
 
 .correct {
+  outline: 2px solid green;
+  background-repeat: no-repeat;
+  background-size: 35px;
+  background-position: right 2% top 2px;
+  background-image: url('../assets/checkbox-circle.png');
+}
+
+
+.selected {
   outline: 2px solid green;
   background-repeat: no-repeat;
   background-size: 35px;
