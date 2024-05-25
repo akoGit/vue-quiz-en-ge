@@ -9,6 +9,7 @@ export const useQuestionsStore = defineStore('questions', () => {
   const questions = ref([]);
   const language = ref(localStorage.getItem('language') || 'en');
 
+
   const getQuestions = async () => {
     const url = language.value === 'en' ? EN : GE
     const response = await fetch(url)
@@ -47,7 +48,6 @@ export const useQuestionsStore = defineStore('questions', () => {
     setQuestions,
   }
 })
-
 
 
 
