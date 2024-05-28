@@ -107,7 +107,7 @@ const displayPageNumbers = computed(() => {
     <ul>
 
       <li v-for="question in getPageQuestions" :key="question.id">
-            <QuestionCard :question="question" @answer-clicked="store.getClickedAns" />
+            <QuestionCard :question="question"  />
       </li>
 
     </ul>

@@ -89,7 +89,7 @@ const isClickable = computed(() => clickedAnswer.value !== null)
   <div class="card">
     <div class="title_id_wrap">
       <h1 v-html="marked.parseInline(question.title)"></h1>
-     <p class="pp">{{ question.id }}</p>
+     <p class="pp">#{{  question.id }}</p>
     </div>
 
     <div class="hljs-code" v-html="renderedMarkdown"></div>
@@ -128,6 +128,7 @@ const isClickable = computed(() => clickedAnswer.value !== null)
       </div>
     </ul>
   </div>
+  <hr>
 </template>
 <style scoped>
 *,
@@ -146,6 +147,26 @@ const isClickable = computed(() => clickedAnswer.value !== null)
   outline: 1px solid #252523;
   margin: 1rem;
 }
+
+
+hr {
+  border: none;
+  border-top: 3px double #333340;
+  color: #333;
+  overflow: visible;
+  text-align: center;
+  height: 5px;
+}
+
+hr::after {
+  background: #1a1a1a;
+  content: '§';
+  color:#FFFFFF;
+  padding: 0 4px;
+  position: relative;
+  top: -13px;
+}
+
 .card {
   flex-grow: 1;
   flex-shrink: 0;

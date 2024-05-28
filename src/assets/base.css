@@ -441,10 +441,22 @@ button:focus:not(:focus-visible) {
  }
 
  :not(pre)>code {
-   background-color: rgba(244, 244, 244, 0.75) !important;
-   padding: 2.5px;
-   border-radius: 4px;
-   color: #000000;
+   /* background-color: rgba(244, 244, 244, 0.75) !important; */
+   /* padding: 2.5px; */
+   /* border-radius: 4px; */
+   /* color: #000000; */
+   /**/
+   /* border: 1px solid #d3dce6; */
+   background-color: rgb(153, 161, 179, 0.1);
+   color: (235 236 240, 1);
+   padding: 0 4px;
+   /* border-radius: 4px; */
+   font-style: normal;
+   display: inline-block;
+   line-height: 24px;
+   font-size: 14px;
+   line-height: 20px;
+   margin: 0 2px;
  }
 
  &::-webkit-scrollbar {

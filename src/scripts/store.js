@@ -18,7 +18,7 @@ export const useQuestionsStore = defineStore('questions', () => {
       const unparsed = text.split(/(?=#{6} [1-9])/).slice(1)
       setQuestions(parseQuestions(unparsed))
     } else {
-      console.error('Failed to fetch questions:', response.statusText)
+      console.error('Failed to fetch:', response.statusText)
     }
   }
 
