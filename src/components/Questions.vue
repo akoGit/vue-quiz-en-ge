@@ -135,11 +135,16 @@ const displayPageNumbers = computed(() => {
 <style scoped>
 .center {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
+  /* display: grid; */
+  /* place-items: center; */
   margin: 0 auto;
   max-width: 60%;
+}
 
+@media (max-width: 850px) {
+  .center {
+    max-width: 80%;
+  }
 }
 
 ul,
