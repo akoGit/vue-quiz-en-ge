@@ -22,7 +22,13 @@ const toggleDark = useToggle(isDark);
 
 <template>
 
- <header>
+  <header>
+
+    <div class="source">
+      <a href="https://github.com/lydiahallie/javascript-questions" target="_blank">
+        <span class="github_link">Questions by lydiahallie</span>
+      </a>
+    </div>
 
 
   <div class="lang_wrap" >
@@ -35,6 +41,7 @@ const toggleDark = useToggle(isDark);
   </div>
 
 
+    <div class='wrap__btns'>
 
   <button @click="toggleDark()" class="theme">
 
@@ -100,7 +107,8 @@ const toggleDark = useToggle(isDark);
         clip-rule="evenodd"></path></svg>
 
     </button>
-<button @click="isAlertOpen = true" class="reset">↺</button>
+    <button @click="isAlertOpen = true" class="reset">↺</button>
+    </div>
 
 <Teleport to="#alert">
 
@@ -128,12 +136,25 @@ const toggleDark = useToggle(isDark);
 
 <style>
 
+.source {
+  margin-left: .4em;
+  a {
+    color:var(--vtc-c-text-1);
+    font-family: monospace;
+    font-size:1rem;
+    &:hover {
+      text-decoration:underline;
+    }
+  }
+}
+
+
 header {
   width:100%;
   height: 3.5rem;
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:space-between;
   backdrop-filter: blur(8px);
   border-bottom: 1px solid ;
   border-color: var(--bord-col);
@@ -141,7 +162,6 @@ header {
   top:0;
 
 }
-
 .alert-enter-active,
 .alert-leave-active {
 transition: all .25s ease;
@@ -275,10 +295,15 @@ input:not(:checked) + label:hover {
   outline-color: rgb(137, 137, 137);
 }
 
+
+.wrap__btns {
+  display: flex;
+  column-gap: .5rem;
+  margin-right:.5rem;
+}
+
+
 .theme {
-  position:fixed;
-  top:0;
-  right:0;
   color: #FFFFFF;
   background-color: var(--vtc-c-bg);
   border: 1px solid var(--bord-col);
@@ -286,20 +311,15 @@ input:not(:checked) + label:hover {
   height:2.5rem;
   border-radius:4px;
   cursor:pointer;
-  margin: .5em 3.5em;
   display:grid;
   place-items:center;
   text-align:center;
 }
 
 .reset {
-  position:fixed;
-  top:0;
-  right:0;
   display:grid;
   place-items:center;
   text-align:center;
-  margin: .5em;
   color: var(--vt-c-text-1);
   background-color: var(--vtc-c-bg);
   border: 1px solid var(--bord-col);
