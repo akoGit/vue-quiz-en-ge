@@ -6,10 +6,7 @@ import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
 
 import 'highlight.js/styles/github-dark.css'
 
-// import 'highlight.js/styles/atom-one-dark.css'
-
 import { useQuestionsStore } from '../scripts/store.js'
- 
 
 const questionsStore = useQuestionsStore()
 
@@ -54,7 +51,6 @@ watchEffect(() => {
   updateMarkdown()
 })
 
-// const emit = defineEmits(['answerClicked'])
 
 function click(answerChar){
   if (clickedAnswer.value !== null) {
@@ -63,11 +59,6 @@ function click(answerChar){
 
   clickedAnswer.value = answerChar
 
-  // emit('answerClicked', {
-  //   id: props.question.id,
-  //   clickedAnswer: answerChar,
-  //   isCorrect: answerChar === props.question.correctAnswer
-  // })
 }
 
 
@@ -94,7 +85,7 @@ const isClickable = computed(() => clickedAnswer.value !== null)
   <div class="card">
     <div class="title_id_wrap">
       <h1 v-html="marked.parseInline(question.title)"></h1>
-     <p class="pp">Question ID: {{ question.id }}</p>
+      <p class="pp">Question ID: {{ question.id }}</p>
     </div>
 
     <div class="hljs-code" v-html="renderedMarkdown"></div>
@@ -120,7 +111,7 @@ const isClickable = computed(() => clickedAnswer.value !== null)
             <svg width="16" height="16" viewBox="0 0 20 20">
               <polyline
                 fill="none"
-                stroke="#FFFFFF"
+                stroke="#000000"
                 stroke-width="1.03"
                 points="16 7 10 13 4 7"
               ></polyline>
@@ -155,16 +146,9 @@ const isClickable = computed(() => clickedAnswer.value !== null)
 .card {
   flex-grow: 1;
   flex-shrink: 0;
-  padding: 1.5rem;
   margin-bottom: 2rem;
-  margin-top: 2rem;
+  margin-top: 4.5rem;
   border-radius: 0.5rem;
-  /* background-color:#060913; */
-  /* border:1px solid var(--vt-c-bg) !important; */
-
-  /* border:1px solid rgb(229, 231, 235, 1); */
-  /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); */
-  
 }
 
 li {
@@ -180,7 +164,6 @@ button {
   margin-bottom: 0.4rem;
   padding: .6rem;
   cursor: pointer;
-  /* transition: background-color 300ms; */
 }
 
 button:hover {
@@ -191,7 +174,6 @@ h1 {
   text-align: left;
   font-size:1.4rem;
   font-weight: bold;
-  /* margin-bottom: 1em; */
 }
 .pp {
   color: var(--text-color);
@@ -202,16 +184,13 @@ h1 {
   display: flex;
   flex-direction:column;
   margin-bottom: 2em;
-  /* justify-content: space-between; */
-  /* text-align: center; */
 }
 
 .correct {
   border: 1px solid green;
   background-repeat: no-repeat;
   background-size: 35px;
-  /* background-size: 45px; */
-  background-position: right 2% top 2px;
+  background-position: right 1% top 2px;
   background-image: url("data:image/svg+xml,%3Csvg data-id='17' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='green' stroke-width='1.5' stroke-linecap='square' stroke-linejoin='square' %3E%3Cpath d='M20 6 9 17l-5-5'%3E%3C/path%3E%3C/svg%3E");
   
 }
@@ -224,27 +203,15 @@ h1 {
   background-image: url("data:image/svg+xml,%3Csvg data-id='35' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='red' stroke='red' stroke-width='1' stroke-linecap='square' stroke-linejoin='square' %3E%3Cpath d='M18 6 6 18'%3E%3C/path%3E%3Cpath d='m6 6 12 12'%3E%3C/path%3E%3C/svg%3E");
 
 }
-/* .selected { */
-/*   outline: 2px solid green; */
-/*   background-repeat: no-repeat; */
-/*   background-size: 35px; */
-/*   background-position: right 2% top 2px; */
-/*   background-image: url('../assets/checkbox-circle.png'); */
-/* } */
-
 
 .explanation {
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* border: 2px solid #333340; */
   padding:1rem;
   border-radius: calc(0.5rem - 2px);
-  /* background-color:#0d1117;  */
   background-color: var(--expl-bg);
-  /* #0d1117; */
   color: var(--vt-c-text-1);
-
   margin-top:1rem;
 }
 

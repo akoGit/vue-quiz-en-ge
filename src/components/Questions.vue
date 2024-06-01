@@ -135,8 +135,6 @@ const displayPageNumbers = computed(() => {
 <style scoped>
 .center {
   min-height: 100vh;
-  /* display: grid; */
-  /* place-items: center; */
   margin: 0 auto;
   max-width: 60%;
 }
@@ -213,7 +211,4 @@ button {
     background-color: hsl(240 3.7% 15.9%);
   }
 }
-
-
-
 </style>
