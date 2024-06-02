@@ -142,7 +142,6 @@ const isClickable = computed(() => clickedAnswer.value !== null)
 }
 
 
-
 .card {
   flex-grow: 1;
   flex-shrink: 0;

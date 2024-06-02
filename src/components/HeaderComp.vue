@@ -1,7 +1,7 @@
 <script setup>
 import { useQuestionsStore } from '../scripts/store.js'
-import { onMounted, watch, ref } from 'vue'
-import { onClickOutside,useDark, useToggle } from "@vueuse/core"
+import { ref } from 'vue'
+import { onClickOutside, useDark, useToggle } from '@vueuse/core'
 
 const { language, toggleLangEN, toggleLangGE } = useQuestionsStore()
 
@@ -11,45 +11,71 @@ const alert = ref(null)
 onClickOutside(alert, () => (isAlertOpen.value = false))
 
 function resetStore() {
-    localStorage.clear()
-    window.location.reload()
+  localStorage.clear()
+  window.location.reload()
 }
 
-const isDark = useDark();
-const toggleDark = useToggle(isDark);
-
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 </script>
 
 <template>
-
   <header>
-
     <div class="source">
       <a href="https://github.com/lydiahallie/javascript-questions" target="_blank">
         <span class="github_link">Questions by lydiahallie</span>
       </a>
     </div>
 
-
-  <div class="lang_wrap" >
-    <div class="tabs">
-      <input type="radio" id="EN" name="fav_language_two" value="EN" :checked="language === 'en'" />
-      <label @click="toggleLangEN" for="EN">EN</label>
-      <input type="radio" id="KA" name="fav_language_two" value="KA" :checked="language === 'ge'" />
-      <label @click="toggleLangGE" for="KA">ქა</label>
+    <div class="lang_wrap">
+      <div class="tabs">
+        <input
+          type="radio"
+          id="EN"
+          name="fav_language_two"
+          value="EN"
+          :checked="language === 'en'"
+        />
+        <label @click="toggleLangEN" for="EN">EN</label>
+        <input
+          type="radio"
+          id="KA"
+          name="fav_language_two"
+          value="KA"
+          :checked="language === 'ge'"
+        />
+        <label @click="toggleLangGE" for="KA">ქა</label>
+      </div>
     </div>
-  </div>
 
+    <div class="wrap__btns">
+      <button @click="toggleDark()" class="theme">
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          v-if="isDark === false"
+        >
+          <path
+            d="M7.5 0C7.77614 0 8 0.223858 8 0.5V2.5C8 2.77614 7.77614 3 7.5 3C7.22386 3 7 2.77614 7 2.5V0.5C7 0.223858 7.22386 0 7.5 0ZM2.1967 2.1967C2.39196 2.00144 2.70854 2.00144 2.90381 2.1967L4.31802 3.61091C4.51328 3.80617 4.51328 4.12276 4.31802 4.31802C4.12276 4.51328 3.80617 4.51328 3.61091 4.31802L2.1967 2.90381C2.00144 2.70854 2.00144 2.39196 2.1967 2.1967ZM0.5 7C0.223858 7 0 7.22386 0 7.5C0 7.77614 0.223858 8 0.5 8H2.5C2.77614 8 3 7.77614 3 7.5C3 7.22386 2.77614 7 2.5 7H0.5ZM2.1967 12.8033C2.00144 12.608 2.00144 12.2915 2.1967 12.0962L3.61091 10.682C3.80617 10.4867 4.12276 10.4867 4.31802 10.682C4.51328 10.8772 4.51328 11.1938 4.31802 11.3891L2.90381 12.8033C2.70854 12.9986 2.39196 12.9986 2.1967 12.8033ZM12.5 7C12.2239 7 12 7.22386 12 7.5C12 7.77614 12.2239 8 12.5 8H14.5C14.7761 8 15 7.77614 15 7.5C15 7.22386 14.7761 7 14.5 7H12.5ZM10.682 4.31802C10.4867 4.12276 10.4867 3.80617 10.682 3.61091L12.0962 2.1967C12.2915 2.00144 12.608 2.00144 12.8033 2.1967C12.9986 2.39196 12.9986 2.70854 12.8033 2.90381L11.3891 4.31802C11.1938 4.51328 10.8772 4.51328 10.682 4.31802ZM8 12.5C8 12.2239 7.77614 12 7.5 12C7.22386 12 7 12.2239 7 12.5V14.5C7 14.7761 7.22386 15 7.5 15C7.77614 15 8 14.7761 8 14.5V12.5ZM10.682 10.682C10.8772 10.4867 11.1938 10.4867 11.3891 10.682L12.8033 12.0962C12.9986 12.2915 12.9986 12.608 12.8033 12.8033C12.608 12.9986 12.2915 12.9986 12.0962 12.8033L10.682 11.3891C10.4867 11.1938 10.4867 10.8772 10.682 10.682ZM5.5 7.5C5.5 6.39543 6.39543 5.5 7.5 5.5C8.60457 5.5 9.5 6.39543 9.5 7.5C9.5 8.60457 8.60457 9.5 7.5 9.5C6.39543 9.5 5.5 8.60457 5.5 7.5ZM7.5 4.5C5.84315 4.5 4.5 5.84315 4.5 7.5C4.5 9.15685 5.84315 10.5 7.5 10.5C9.15685 10.5 10.5 9.15685 10.5 7.5C10.5 5.84315 9.15685 4.5 7.5 4.5Z"
+            fill="black"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
 
-    <div class='wrap__btns'>
-
-  <button @click="toggleDark()" class="theme">
-
-
-      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" v-if="isDark === false" ><path d="M7.5 0C7.77614 0 8 0.223858 8 0.5V2.5C8 2.77614 7.77614 3 7.5 3C7.22386 3 7 2.77614 7 2.5V0.5C7 0.223858 7.22386 0 7.5 0ZM2.1967 2.1967C2.39196 2.00144 2.70854 2.00144 2.90381 2.1967L4.31802 3.61091C4.51328 3.80617 4.51328 4.12276 4.31802 4.31802C4.12276 4.51328 3.80617 4.51328 3.61091 4.31802L2.1967 2.90381C2.00144 2.70854 2.00144 2.39196 2.1967 2.1967ZM0.5 7C0.223858 7 0 7.22386 0 7.5C0 7.77614 0.223858 8 0.5 8H2.5C2.77614 8 3 7.77614 3 7.5C3 7.22386 2.77614 7 2.5 7H0.5ZM2.1967 12.8033C2.00144 12.608 2.00144 12.2915 2.1967 12.0962L3.61091 10.682C3.80617 10.4867 4.12276 10.4867 4.31802 10.682C4.51328 10.8772 4.51328 11.1938 4.31802 11.3891L2.90381 12.8033C2.70854 12.9986 2.39196 12.9986 2.1967 12.8033ZM12.5 7C12.2239 7 12 7.22386 12 7.5C12 7.77614 12.2239 8 12.5 8H14.5C14.7761 8 15 7.77614 15 7.5C15 7.22386 14.7761 7 14.5 7H12.5ZM10.682 4.31802C10.4867 4.12276 10.4867 3.80617 10.682 3.61091L12.0962 2.1967C12.2915 2.00144 12.608 2.00144 12.8033 2.1967C12.9986 2.39196 12.9986 2.70854 12.8033 2.90381L11.3891 4.31802C11.1938 4.51328 10.8772 4.51328 10.682 4.31802ZM8 12.5C8 12.2239 7.77614 12 7.5 12C7.22386 12 7 12.2239 7 12.5V14.5C7 14.7761 7.22386 15 7.5 15C7.77614 15 8 14.7761 8 14.5V12.5ZM10.682 10.682C10.8772 10.4867 11.1938 10.4867 11.3891 10.682L12.8033 12.0962C12.9986 12.2915 12.9986 12.608 12.8033 12.8033C12.608 12.9986 12.2915 12.9986 12.0962 12.8033L10.682 11.3891C10.4867 11.1938 10.4867 10.8772 10.682 10.682ZM5.5 7.5C5.5 6.39543 6.39543 5.5 7.5 5.5C8.60457 5.5 9.5 6.39543 9.5 7.5C9.5 8.60457 8.60457 9.5 7.5 9.5C6.39543 9.5 5.5 8.60457 5.5 7.5ZM7.5 4.5C5.84315 4.5 4.5 5.84315 4.5 7.5C4.5 9.15685 5.84315 10.5 7.5 10.5C9.15685 10.5 10.5 9.15685 10.5 7.5C10.5 5.84315 9.15685 4.5 7.5 4.5Z" fill="black" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-
-    <svg width="15" height="15" v-else  
-      viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.89998 0.499976C2.89998 0.279062
+        <svg
+          width="15"
+          height="15"
+          v-else
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.89998 0.499976C2.89998 0.279062
         2.72089 0.0999756 2.49998 0.0999756C2.27906 0.0999756 2.09998 0.279062
         2.09998 0.499976V1.09998H1.49998C1.27906 1.09998 1.09998 1.27906
         1.09998 1.49998C1.09998 1.72089 1.27906 1.89998 1.49998
@@ -103,109 +129,107 @@ const toggleDark = useToggle(isDark);
         8.51332C9.88358 8.63163 10.1088 8.69993 10.35 8.69993C11.0403 8.69993
         11.6 8.14028 11.6 7.44993C11.6 6.75976 11.0406 6.20024 10.3505
         6.19993C10.3853 5.90487 10.4032 5.60464 10.4032 5.30023Z"
-        fill="currentColor" fill-rule="evenodd"
-        clip-rule="evenodd"></path></svg>
-
-    </button>
-    <button @click="isAlertOpen = true" class="reset">↺</button>
+            fill="currentColor"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+      <button @click="isAlertOpen = true" class="reset">↺</button>
     </div>
 
-<Teleport to="#alert">
+    <Teleport to="#alert">
+      <Transition name="alert">
+        <div class="alert-bg" v-if="isAlertOpen">
+          <div class="alert" ref="alert">
+            <div class="alert-text">
+              <h1>Are you absolutely sure?</h1>
+              <p>
+                This action cannot be undone. This will permanently delete your already answered
+                questions.
+              </p>
+            </div>
 
-    <Transition name="alert">
-    <div class="alert-bg" v-if="isAlertOpen">
-      <div class="alert" ref="alert">
-        <div class="alert-text">
-          <h1>Are you absolutely sure?</h1>
-          <p>This action cannot be undone. This will permanently delete your already answered questions.</p>
+            <div class="alert-btns">
+              <button @click="isAlertOpen = false">Cancel</button>
+              <button @click="resetStore">Continue</button>
+            </div>
+          </div>
         </div>
-
-        <div class="alert-btns">
-          <button @click="isAlertOpen = false">Cancel</button>
-          <button @click="resetStore">Continue</button>
-        </div>
-      </div>
-    </div>
-    </Transition>
-
-  </Teleport>
-
-
+      </Transition>
+    </Teleport>
   </header>
 </template>
 
 <style>
-
 .source {
-  margin-left: .4em;
+  margin-left: 0.4em;
   a {
-    color:var(--vtc-c-text-1);
+    color: var(--vtc-c-text-1);
     font-family: monospace;
-    font-size:1rem;
+    font-size: 1rem;
     &:hover {
-      text-decoration:underline;
+      text-decoration: underline;
     }
   }
 }
 
-
 header {
-  width:100%;
+  width: 100%;
   height: 3.5rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid ;
+  border-bottom: 1px solid;
   border-color: var(--bord-col);
   position: fixed;
-  top:0;
-
+  top: 0;
 }
 .alert-enter-active,
 .alert-leave-active {
-transition: all .25s ease;
+  transition: all 0.25s ease;
 }
 
 .alert-enter-from,
 .alert-leave-to {
   opacity: 0;
-  transform: scale(.95);
+  transform: scale(0.95);
 }
 
 .alert-bg {
-  position:fixed;
+  position: fixed;
   top: 0;
   left: 0;
-  width:100vw;
-  height:100vh;
-  background-color:rgba(0, 0, 0, .8);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 50;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  transform:scale(1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1);
 }
 .alert {
-  border-radius:0.5rem;
-  padding:1.5rem;
-  background-color: hsl(240 ,10%, 3.9%);
-  border: 1px solid #333340;;
-  max-width:32rem;
-  display:flex;
-  flex-direction:column;
-  gap:1rem;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  background-color: hsl(240, 10%, 3.9%);
+  border: 1px solid #333340;
+  max-width: 32rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 .alert-text {
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 }
 .alert-text h1 {
   font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 600;
-  color: #FFFFFF;
-  margin-bottom: .5em;
+  color: #ffffff;
+  margin-bottom: 0.5em;
 }
 
 .alert-text p {
@@ -276,7 +300,7 @@ input:not(:checked) + label:hover {
 
 .tabs::after {
   pointer-events: none;
-  content: "";
+  content: '';
   width: calc(100% / var(--count));
   height: 100%;
   background: hsl(0 0% 100%);
@@ -295,67 +319,65 @@ input:not(:checked) + label:hover {
   outline-color: rgb(137, 137, 137);
 }
 
-
 .wrap__btns {
   display: flex;
-  column-gap: .5rem;
-  margin-right:.5rem;
+  column-gap: 0.5rem;
+  margin-right: 0.5rem;
 }
 
-
 .theme {
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: var(--vtc-c-bg);
   border: 1px solid var(--bord-col);
-  width:2.5rem;
-  height:2.5rem;
-  border-radius:4px;
-  cursor:pointer;
-  display:grid;
-  place-items:center;
-  text-align:center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  text-align: center;
 }
 
 .reset {
-  display:grid;
-  place-items:center;
-  text-align:center;
+  display: grid;
+  place-items: center;
+  text-align: center;
   color: var(--vt-c-text-1);
   background-color: var(--vtc-c-bg);
   border: 1px solid var(--bord-col);
-  width:2.5rem;
-  height:2.5rem;
-  border-radius:4px;
-  cursor:pointer;
-  
- }
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 button {
-  cursor:pointer;
-  font-weight:500;
+  cursor: pointer;
+  font-weight: 500;
   border-color: var(--bord-col);
 }
 button:hover {
-  background-color:var(--btn-h-c);
+  background-color: var(--btn-h-c);
 }
 
 .alert-btns {
-  display:flex;
-  justify-content:flex-end;
-  gap: .5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 .alert-btns > button {
   background-color: #000000;
-  border: 1px solid  #333340;
-  padding: .5rem 1rem;
-  border-radius:6px;
+  border: 1px solid #333340;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: #FFFFFF;
 }
 .alert-btns > button:first-child:hover {
-  background-color:hsl(240,3.7%,15.9%);
+  background-color: hsl(240, 3.7%, 15.9%);
 }
 .alert-btns :nth-of-type(2) {
-  color:#000000;
-  background-color:#FFFFFF;
+  color: #000000;
+  background-color: #ffffff;
 }
 </style>
