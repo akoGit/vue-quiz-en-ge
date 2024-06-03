@@ -58,10 +58,7 @@ function click(answerChar){
   }
 
   clickedAnswer.value = answerChar
-
 }
-
-
 
 watch(clickedAnswer, (newAnswer) => {
   if (newAnswer !== null) {
@@ -126,7 +123,6 @@ const isClickable = computed(() => clickedAnswer.value !== null)
       </div>
 
   </div>
-  <!-- <hr> -->
 </template>
 <style scoped>
 *,

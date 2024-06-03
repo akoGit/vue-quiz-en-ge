@@ -184,7 +184,7 @@ button {
     justify-content: center;
     align-items: center;
     text-align: center;
-    border-radius: 0.5rem;
+    border-radius: calc(0.5rem - 2px);
   }
   &.page {
     display: flex;
@@ -192,9 +192,9 @@ button {
 }
 
 .activePage {
-  color: #ffffff;
-  background-color: #000000;
-  border: 1px solid #333340;
+  color: var(--vt-c-text-1);
+  background-color: var(--exp-bg);
+  border: 1px solid var(--bord-black);
 }
 .pageNums {
   display: flex;
@@ -203,12 +203,11 @@ button {
   text-align: center;
   width: 2.25rem;
   height: 2.25rem;
-  border-radius: 0.4rem;
   padding: 0;
 
   &:hover {
     color: hsl(0 0% 98%);
-    background-color: hsl(240 3.7% 15.9%);
+    background-color: var(--btn-hover-c-dark); 
   }
 }
 </style>

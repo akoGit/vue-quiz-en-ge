@@ -336,6 +336,7 @@ input:not(:checked) + label:hover {
   display: grid;
   place-items: center;
   text-align: center;
+  margin-left:.5em;
 }
 
 .reset {
