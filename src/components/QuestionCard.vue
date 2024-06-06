@@ -1,12 +1,8 @@
 <script setup>
+import { useQuestionsStore } from '../scripts/store.js'
 import { onMounted, ref, watchEffect, computed, watch } from 'vue'
 import hljs from 'highlight.js'
-
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
-
-import 'highlight.js/styles/github-dark.css'
-
-import { useQuestionsStore } from '../scripts/store.js'
 
 const questionsStore = useQuestionsStore()
 
@@ -21,24 +17,24 @@ const localStorageKey = computed(() => `#_${props.question.id}`)
 const renderedMarkdown = ref('')
 
 const updateMarkdown = () => {
-  hljs.configure({ useBR: false })
+  hljs.configure({ useBR: false });
 
-  const renderer = new marked.Renderer()
+  const renderer = new marked.Renderer();
   renderer.code = (code, language) => {
-    const validLanguage = hljs.getLanguage(language) ? language : 'plaintext'
-    const highlightedCode = hljs.highlight(validLanguage, code).value
-    return `<pre><code class="hljs language-${validLanguage}">${highlightedCode}</code></pre>`
-  }
+    const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
+    const highlightedCode = hljs.highlight(code, { language: validLanguage, ignoreIllegals: true }).value;
+    return `<pre><code class="hljs language-${validLanguage}">${highlightedCode}</code></pre>`;
+  };
 
   marked.setOptions({
     renderer: renderer,
     highlight: (code) => {
-      return hljs.highlightAuto(code).value
+      return hljs.highlightAuto(code).value;
     }
-  })
+  });
 
-  renderedMarkdown.value = marked(props.question.body)
-}
+  renderedMarkdown.value = marked(props.question.body);
+};
 
 onMounted(() => {
   updateMarkdown()
@@ -144,6 +140,9 @@ const isClickable = computed(() => clickedAnswer.value !== null)
   margin-bottom: 2rem;
   margin-top: 4.5rem;
   border-radius: 0.5rem;
+  border:1px solid;
+  border-color: var(--cd-b-c);
+  padding:1.5rem;
 }
 
 li {
@@ -241,6 +240,7 @@ h1 {
 
 .answer > p {
   overflow:hidden;
+  line-height:1.5rem;
 }
 
 .answer {

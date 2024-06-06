@@ -3,7 +3,8 @@ import QuestionCard from './QuestionCard.vue'
 import { useQuestionsStore } from '../scripts/store.js'
 import { computed, onMounted, ref, nextTick } from 'vue'
 
-let questionsPerPage = 10
+
+let questionsPerPage = window.innerWidth > 600 ? 10 : 5;
 let page = ref(1)
 
 const store = useQuestionsStore()
@@ -78,7 +79,7 @@ const totalPages = computed(() => Math.ceil(store.questions.length / questionsPe
 const displayPageNumbers = computed(() => {
   const currentPage = page.value
   const lastPage = totalPages.value
-  const maxPagesToShow = 5
+  const maxPagesToShow = window.innerWidth > 600 ? 5 : 3;
 
   let startPage = currentPage - Math.floor(maxPagesToShow / 2)
   let endPage = currentPage + Math.floor(maxPagesToShow / 2)
@@ -116,7 +117,7 @@ const displayPageNumbers = computed(() => {
 
 <div class="pagination_nav">
     <button @click="firstPage" :disabled="page === 1">⇤</button>
-    <button @click="prevPage" :disabled="page === 1" class="page prev">← Previous</button>
+    <button @click="prevPage" :disabled="page === 1" class="page prev">←</button>
     <span v-for="pageNumber in displayPageNumbers" :key="pageNumber">
       <button
         @click="goToPage(pageNumber)"
@@ -126,7 +127,7 @@ const displayPageNumbers = computed(() => {
         {{ pageNumber }}
       </button>
     </span>
-    <button @click="nextPage" :disabled="page === totalPages" class="page next">Next →</button>
+    <button @click="nextPage" :disabled="page === totalPages" class="page next">→</button>
     <button @click="lastPage">⇥</button>
   </div>
 
@@ -164,8 +165,7 @@ button {
   padding: 0 0.5rem;
 
   &:hover {
-    color: hsl(0 0% 98%);
-    background-color: hsl(240 3.7% 15.9%);
+    background-color: var(--btn-h-c); 
     cursor: pointer;
   }
   &:focus {
@@ -194,7 +194,7 @@ button {
 .activePage {
   color: var(--vt-c-text-1);
   background-color: var(--exp-bg);
-  border: 1px solid var(--bord-black);
+  border: 1px solid var(--cd-b-c);
 }
 .pageNums {
   display: flex;
@@ -206,8 +206,7 @@ button {
   padding: 0;
 
   &:hover {
-    color: hsl(0 0% 98%);
-    background-color: var(--btn-hover-c-dark); 
+    background-color: var(--btn-h-c); 
   }
 }
 </style>
