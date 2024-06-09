@@ -158,8 +158,8 @@ button {
   margin-bottom: 0.4rem;
   padding: .6rem;
   cursor: pointer;
-  background-position: 0;
-  transition: background-position .5s ease-out;
+  background-position: right 0% top -330%;
+  transition: background-position .3s cubic-bezier(0.47, 1.64, 0.41, 0.8), border-color .300s linear;
 }
 
 
