@@ -23,9 +23,9 @@ onMounted(async () => {
 })
 
 const getPageQuestions = computed(() => {
-  const startIndex = (page.value - 1) * questionsPerPage
-  const endIndex = startIndex + questionsPerPage
-  return store.questions.slice(startIndex, endIndex)
+  const startIndex = (page.value - 1) * questionsPerPage;
+  const endIndex = startIndex + questionsPerPage;
+  return store.questions.slice(startIndex, endIndex);
 })
 
 const nextPage = () => {
@@ -103,7 +103,6 @@ const displayPageNumbers = computed(() => {
 </script>
 
 <template>
-  
   <div class="center">
     <ul>
 
@@ -142,6 +141,7 @@ const displayPageNumbers = computed(() => {
 </template>
 
 <style scoped>
+
 .center {
   min-height: 100vh;
   margin: 0 auto;
