@@ -3,7 +3,6 @@ import QuestionCard from './QuestionCard.vue'
 import { useQuestionsStore } from '../scripts/store.js'
 import { computed, onMounted, ref, nextTick } from 'vue'
 
-
 let questionsPerPage = window.innerWidth > 600 ? 10 : 5;
 let page = ref(1)
 

@@ -1,8 +1,19 @@
 <script setup>
 import { useQuestionsStore } from '../scripts/store.js'
-import { onMounted, ref, watchEffect, computed, watch } from 'vue'
-import hljs from 'highlight.js'
-import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
+import { onMounted, ref, nextTick, computed, watch } from 'vue'
+
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import html from 'highlight.js/lib/languages/xml'
+
+import { marked } from 'marked';
+
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('html', html);
+
+hljs.configure({
+  ignoreUnescapedHTML: true
+})
 
 const questionsStore = useQuestionsStore()
 
@@ -14,39 +25,19 @@ const props = defineProps({
 
 const localStorageKey = computed(() => `#_${props.question.id}`)
 
-const renderedMarkdown = ref('')
-
-const updateMarkdown = () => {
-  hljs.configure({ useBR: false });
-
-  const renderer = new marked.Renderer();
-  renderer.code = (code, language) => {
-    const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-    const highlightedCode = hljs.highlight(code, { language: validLanguage, ignoreIllegals: true }).value;
-    return `<pre><code class="hljs language-${validLanguage}">${highlightedCode}</code></pre>`;
-  };
-
-  marked.setOptions({
-    renderer: renderer,
-    highlight: (code) => {
-      return hljs.highlightAuto(code).value;
-    }
+const highlightCodeBlocks = () => {
+  document.querySelectorAll('pre code').forEach((block) => {
+    block.removeAttribute('data-highlighted');
+    hljs.highlightElement(block);
   });
-
-  renderedMarkdown.value = marked(props.question.body);
 };
 
 onMounted(() => {
-  updateMarkdown()
+  highlightCodeBlocks();
   const storedAnswer = localStorage.getItem(localStorageKey.value)
   if (storedAnswer) {
     clickedAnswer.value = storedAnswer
 }})
-
-watchEffect(() => {
-  updateMarkdown()
-})
-
 
 function click(answerChar){
   if (clickedAnswer.value !== null) {
@@ -62,7 +53,6 @@ watch(clickedAnswer, (newAnswer) => {
   }
 })
 
-
 const isOpen = ref(false)
 
 const toggleAccordion = () => {
@@ -72,8 +62,8 @@ const toggleAccordion = () => {
 }
 
 const isClickable = computed(() => clickedAnswer.value !== null)
-
 </script>
+
 <template>
   <div class="card">
     <div class="title_id_wrap">
@@ -81,7 +71,7 @@ const isClickable = computed(() => clickedAnswer.value !== null)
       <p class="pp">Question ID: {{ question.id }}</p>
     </div>
 
-    <div class="hljs-code" v-html="renderedMarkdown"></div>
+    <div class="hljs-code" v-html="marked(question.body)"></div>
 
       <li v-for="answer in question.answers" :key="answer.char">
         <button
@@ -132,7 +122,6 @@ const isClickable = computed(() => clickedAnswer.value !== null)
   margin-bottom: 1rem;
   background-color: var(--expl-bg) !important;
 }
-
 
 .card {
   flex-grow: 1;
@@ -212,7 +201,6 @@ h1 {
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* padding:1rem; */
   padding-top:1rem;
   padding-left:1rem;
   border-radius: calc(0.5rem - 2px);
