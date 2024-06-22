@@ -10,7 +10,7 @@ import { marked } from 'marked';
 
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('html', html);
-
+// TODO: fix xss issue...
 hljs.configure({
   ignoreUnescapedHTML: true
 })
